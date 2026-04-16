@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface recipeRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByNameIgnoringCase(String name);
     List<Recipe> findByCategoryIgnoringCase(String category);
     List<Recipe> findByFavorite(Boolean favorite);
