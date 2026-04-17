@@ -40,7 +40,7 @@ public class recipeController {
         recipeService.deleteRecipe(id);
     }
     @GetMapping("/search")
-    public List<Recipe> getRecipeByName(String name)
+    public List<Recipe> getRecipeByName(@RequestParam String name)
     {
         return recipeService.getByName(name);
     }
