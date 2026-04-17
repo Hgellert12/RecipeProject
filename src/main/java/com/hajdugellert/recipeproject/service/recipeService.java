@@ -37,9 +37,9 @@ public List<Recipe> getByFavorite(Boolean Favorite)
 {
     return recipeRepository.findByFavorite(Favorite);
 }
-public Recipe updateRecipe(Recipe newRecipe)
+public Recipe updateRecipe(Long id, Recipe newRecipe)
 {
- Recipe recipe = getRecipeById(newRecipe.getId());
+    Recipe recipe = getRecipeById(id);
     recipe.setName(newRecipe.getName());
     recipe.setCost(newRecipe.getCost());
     recipe.setDescription(newRecipe.getDescription());
