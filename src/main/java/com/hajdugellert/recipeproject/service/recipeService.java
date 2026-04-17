@@ -6,6 +6,7 @@ import com.hajdugellert.recipeproject.entity.*;
 
 import java.util.List;
 
+
 @Service
 public class recipeService {
 @Autowired
@@ -21,7 +22,8 @@ public List<Recipe> getAllRecipes()
 }
 public Recipe getRecipeById(Long ID)
 {
-    return recipeRepository.findById(ID).orElse(null);
+    return recipeRepository.findById(ID).orElseThrow(() -> new RuntimeException("Recipe not found"));
+
 }
 public List<Recipe> getByName(String name)
 {
@@ -34,5 +36,25 @@ public List<Recipe> getByCategory(String category)
 public List<Recipe> getByFavorite(Boolean Favorite)
 {
     return recipeRepository.findByFavorite(Favorite);
+}
+public Recipe updateRecipe(Recipe newRecipe)
+{
+ Recipe recipe = getRecipeById(newRecipe.getId());
+    recipe.setName(newRecipe.getName());
+    recipe.setCost(newRecipe.getCost());
+    recipe.setDescription(newRecipe.getDescription());
+    recipe.setIngredients(newRecipe.getIngredients());
+    recipe.setInstructions(newRecipe.getInstructions());
+    recipe.setPrepTime(newRecipe.getPrepTime());
+    recipe.setCategory(newRecipe.getCategory());
+    recipe.setFavorite(newRecipe.getFavorite());
+    return recipeRepository.save(recipe);
+}
+public void deleteRecipe(Long ID)
+{
+    Recipe recipe = getRecipeById(ID);
+    recipeRepository.delete(recipe);
+
+
 }
 }
