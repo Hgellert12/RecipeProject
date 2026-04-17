@@ -27,11 +27,11 @@ public Recipe getRecipeById(Long ID)
 }
 public List<Recipe> getByName(String name)
 {
-    return recipeRepository.findByNameContainingIgnoringCase(name);
+    return recipeRepository.findByNameContainingIgnoreCase(name);
 }
 public List<Recipe> getByCategory(String category)
 {
-    return recipeRepository.findByCategoryIgnoringCase(category);
+    return recipeRepository.findByCategoryIgnoreCase(category);
 }
 public List<Recipe> getByFavorite(Boolean Favorite)
 {
