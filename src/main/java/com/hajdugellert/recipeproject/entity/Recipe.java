@@ -8,6 +8,7 @@ import jakarta.validation.constraints.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "recipes")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,9 @@ public class Recipe {
     @NotNull
     private Double cost;
     private Boolean favorite =false;
+    @OneToMany
+    @JoinColumn(name = "written_by_id")
+    private User writtenBy;
 
 
 }
