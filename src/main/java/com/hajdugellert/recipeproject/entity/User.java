@@ -18,7 +18,7 @@ public class User {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private String name;
+    private String username;
     private int age;
     private String occupation;
 

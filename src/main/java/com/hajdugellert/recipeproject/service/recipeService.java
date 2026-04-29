@@ -57,4 +57,8 @@ public void deleteRecipe(Long ID)
 
 
 }
+public List<Recipe> getByUser(String writtenby)
+    {
+        return recipeRepository.findByWrittenByUsernameIgnoreCase(writtenby);
+    }
 }

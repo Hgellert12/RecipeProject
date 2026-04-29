@@ -56,8 +56,11 @@ public class recipeController {
     {
         return recipeService.getByFavorite(true);
     }
-
-
+    @GetMapping("/user/{username}")
+    public List<Recipe> getRecipesByUser(@PathVariable String username)
+    {
+        return recipeService.getByName(username);
+    }
 
 
 }

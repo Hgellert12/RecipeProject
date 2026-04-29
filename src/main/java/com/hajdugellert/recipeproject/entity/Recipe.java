@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Getter
@@ -27,9 +28,11 @@ public class Recipe {
     @NotNull
     private Double cost;
     private Boolean favorite =false;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "written_by_id")
     private User writtenBy;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private java.time.LocalDate createdAt = java.time.LocalDate.now();
 
 
 }
