@@ -1,5 +1,6 @@
 package com.hajdugellert.recipeproject.service;
 import com.hajdugellert.recipeproject.repository.RecipeRepository;
+import com.hajdugellert.recipeproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hajdugellert.recipeproject.entity.*;
@@ -61,4 +62,5 @@ public List<Recipe> getByUser(String writtenby)
     {
         return recipeRepository.findByWrittenByUsernameIgnoreCase(writtenby);
     }
+
 }
