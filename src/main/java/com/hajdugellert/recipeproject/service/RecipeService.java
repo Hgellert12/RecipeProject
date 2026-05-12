@@ -1,6 +1,5 @@
 package com.hajdugellert.recipeproject.service;
 import com.hajdugellert.recipeproject.repository.RecipeRepository;
-import com.hajdugellert.recipeproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hajdugellert.recipeproject.entity.*;
@@ -9,7 +8,7 @@ import java.util.List;
 
 
 @Service
-public class recipeService {
+public class RecipeService {
 @Autowired
 private RecipeRepository recipeRepository;
 

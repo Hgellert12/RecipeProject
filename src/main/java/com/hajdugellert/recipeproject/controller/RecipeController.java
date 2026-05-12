@@ -1,17 +1,17 @@
 package com.hajdugellert.recipeproject.controller;
 import com.hajdugellert.recipeproject.entity.Recipe;
 import jakarta.validation.Valid;
-import com.hajdugellert.recipeproject.service.recipeService;
+import com.hajdugellert.recipeproject.service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/recipes")
-public class recipeController {
-    private final recipeService recipeService;
+public class RecipeController {
+    private final RecipeService recipeService;
 
 
-    public recipeController(recipeService recipeService) {
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
     @PostMapping

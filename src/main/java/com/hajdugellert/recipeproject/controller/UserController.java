@@ -2,7 +2,6 @@ package com.hajdugellert.recipeproject.controller;
 
 import com.hajdugellert.recipeproject.entity.User;
 import com.hajdugellert.recipeproject.service.UserService;
-import com.hajdugellert.recipeproject.service.recipeService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
