@@ -5,6 +5,9 @@ import lombok.Setter;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -19,8 +22,7 @@ public class Recipe {
     private String description;
     @NotBlank
     private String category;
-    @NotBlank
-    private String ingredients;
+    private List<String> ingredients;
     @NotBlank
     private String instructions;
     @NotNull
@@ -32,7 +34,7 @@ public class Recipe {
     @JoinColumn(name = "written_by_id")
     private User writtenBy;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.time.LocalDate createdAt = java.time.LocalDate.now();
+    private LocalDate createdAt = LocalDate.now();
 
 
 }
