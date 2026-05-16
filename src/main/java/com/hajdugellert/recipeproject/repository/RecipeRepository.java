@@ -10,6 +10,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByCategoryIgnoreCase(String category);
     List<Recipe> findByFavorite(Boolean favorite);
     List<Recipe> findByWrittenByUsernameIgnoreCase(String username);
+    List<Recipe> findByIngredientsContainingIgnoreCase(String ingredients);
 
 
 

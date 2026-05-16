@@ -1,9 +1,12 @@
 package com.hajdugellert.recipeproject.service;
 
 import com.hajdugellert.recipeproject.dto.IngredientScanResponse;
+import com.hajdugellert.recipeproject.dto.RecipeResponse;
 import com.hajdugellert.recipeproject.entity.IngredientScan;
 import com.hajdugellert.recipeproject.mapper.IngredientScanMapper;
+import com.hajdugellert.recipeproject.mapper.RecipeMapper;
 import com.hajdugellert.recipeproject.repository.IngredientScanRepository;
+import com.hajdugellert.recipeproject.repository.RecipeRepository;
 import com.hajdugellert.recipeproject.vision.GoogleVisionClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,10 @@ public class IngredientScanService {
 
     @Autowired
     private GoogleVisionClient googleVisionClient;
+
+    @Autowired
+     private RecipeRepository recipeRepository;
+
 
     private static final Set<String> KNOWN_INGREDIENTS = Set.of(
             "chicken",
@@ -76,12 +83,21 @@ public class IngredientScanService {
             throw new IllegalArgumentException("File must be an image");
         }
 
-        long maxSize = 5 * 1024 * 1024;
+        long maxSize = 10 * 1920 * 1080;
 
         if (image.getSize() > maxSize) {
-            throw new IllegalArgumentException("Image must be smaller than 5MB");
+            throw new IllegalArgumentException("Image must be smaller than 10MB");
         }
     }
-
+    public List<RecipeResponse> getRecipeRecommendationsFromPicture(Long scanId)
+    {
+        IngredientScan scan = ingredientScanRepository.findById(scanId).orElseThrow(() -> new RuntimeException("Scan not found"));
+        List<String> ingredients = scan.getDetectedIngredients();
+        return ingredients.stream()
+                .flatMap(ingredient -> recipeRepository.findByIngredientsContainingIgnoreCase(ingredient).stream())
+                .distinct()
+                .map(RecipeMapper::toResponse)
+                .toList();
+    }
 }
 
