@@ -1,6 +1,7 @@
 package com.hajdugellert.recipelens.controller;
 
 import com.hajdugellert.recipelens.dto.IngredientScanResponse;
+import com.hajdugellert.recipelens.dto.RecipeMatchResponse;
 import com.hajdugellert.recipelens.dto.RecipeResponse;
 import com.hajdugellert.recipelens.service.IngredientScanService;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public class IngredientScannerController {
         return ResponseEntity.ok(ingredientScanService.scanImage(file));
     }
     @PostMapping("/recommendations/fromscan/{scanId}")
-    public ResponseEntity<List<RecipeResponse>> getRecipeRecommendationsFromPicture(@PathVariable Long scanId)
+    public ResponseEntity<List<RecipeMatchResponse>> getRecipeRecommendationsFromPicture(@PathVariable Long scanId)
     {
         return ResponseEntity.ok(ingredientScanService.getRecipeRecommendationsFromPicture(scanId));
     }

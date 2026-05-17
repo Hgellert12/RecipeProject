@@ -1,18 +1,22 @@
 package com.hajdugellert.recipelens.service;
 
 import com.hajdugellert.recipelens.dto.IngredientScanResponse;
+import com.hajdugellert.recipelens.dto.RecipeMatchResponse;
 import com.hajdugellert.recipelens.dto.RecipeResponse;
 import com.hajdugellert.recipelens.entity.IngredientScan;
+import com.hajdugellert.recipelens.entity.Recipe;
 import com.hajdugellert.recipelens.mapper.IngredientScanMapper;
 import com.hajdugellert.recipelens.mapper.RecipeMapper;
 import com.hajdugellert.recipelens.repository.IngredientScanRepository;
 import com.hajdugellert.recipelens.repository.RecipeRepository;
+import com.hajdugellert.recipelens.util.RecipeMatchCalculator;
 import com.hajdugellert.recipelens.vision.GoogleVisionClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 @Service
@@ -89,15 +93,15 @@ public class IngredientScanService {
             throw new IllegalArgumentException("Image must be smaller than 10MB");
         }
     }
-    public List<RecipeResponse> getRecipeRecommendationsFromPicture(Long scanId)
+    public List<RecipeMatchResponse> getRecipeRecommendationsFromPicture(Long scanId)
     {
         IngredientScan scan = ingredientScanRepository.findById(scanId).orElseThrow(() -> new RuntimeException("Scan not found"));
         List<String> ingredients = scan.getDetectedIngredients();
-        return ingredients.stream()
+        List<Recipe> recipes = ingredients.stream()
                 .flatMap(ingredient -> recipeRepository.findByIngredientsContainingIgnoreCase(ingredient).stream())
                 .distinct()
-                .map(RecipeMapper::toResponse)
                 .toList();
+        return recipes.stream().map(recipe ->RecipeMatchCalculator.calculateMatch(recipe,ingredients)).sorted(Comparator.comparing(RecipeMatchResponse::matchPercentage).reversed()).toList();
     }
 }
 
